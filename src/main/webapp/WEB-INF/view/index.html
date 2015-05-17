@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<script src="./js/vendor/jQuery.js"></script>
+
+    
+<script src="./js/src/transaction_generator.js"></script>
+<script src="./js/src/resumes_view.js"></script>
+<script src="./js/src/resume_trasaction.js"></script>
+<script src="./js/src/store_ajax.js"></script>
+<script src="./js/src/controller.js"></script>
+
+
+<body>
+  <h1>APLICATION WITH AUTOMATIC AJAX CALLS</h1>
+  
+   <div >
+	 <div>
+	  <h3>Last Errors in transaction Object</h3>
+	  <ul id="listErrors">
+	  </ul>
+	 <div>
+	 	<h3>All Resumes Transactions</h3>
+	    <ul id="resumes">
+	    </ul>	
+     </div>
+  </div>
+</body>
+
+<script>
+var listErrors = document.getElementById("listErrors"),
+    listResumeTransations = document.getElementById("resumes"),
+    view = ResumesView({
+                         errors:listErrors,
+                         resumes:listResumeTransations}),
+    store = new Store(),
+    controller = Controller(view,store),
+    genJson = jsonToSendGenerator();
+    setInterval(function(){
+    	controller.runWith(genJson.buildJSON());
+    },1000);
+
+</script>
